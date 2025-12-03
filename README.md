@@ -114,27 +114,39 @@ python3 -m http.server 8000
 
 ## 🎯 How to Play
 
-1. **Register** a new account or **Login** with existing credentials
+1. **Register/Login**: Create an account or log in with existing credentials
+   - Default admin: `admin` / `admin123`
    - Or click "Play as Guest" for offline mode
 
-2. **Controls:**
-   - Arrow Keys: Move the spaceship
-   - Avoid the red meteors
-   - Survive as long as possible to increase your score
+2. **Start Game**: Click "Start Game" to begin your space adventure
 
-3. **Scoring:**
-   - Points increase continuously while playing
-   - Every 1000 points = new level
-   - Higher levels = faster obstacles
+3. **Controls**: Use **Arrow Keys** (← →) or **A/D keys** to move your spaceship
 
-4. **Ranks:**
-   - Beginner (0-999)
-   - Novice (1000-4999)
-   - Intermediate (5000-9999)
-   - Advanced (10000-19999)
-   - Expert (20000-49999)
-   - Master (50000-99999)
-   - Legend (100000+)
+4. **Objective**: Dodge asteroids and survive as long as possible
+
+5. **Scoring**: 
+   - +1 point per second survived
+   - +10 points for each asteroid dodged
+   - Every 1000 points = new level with faster obstacles
+
+6. **Ranks:**
+   - 🥉 Beginner (0-999)
+   - 🥈 Novice (1000-4999)
+   - 🥇 Intermediate (5000-9999)
+   - ⭐ Advanced (10000-19999)
+   - 💎 Expert (20000-49999)
+   - 👑 Master (50000-99999)
+   - 🏆 Legend (100000+)
+
+7. **Submit Score**: After game over, your score is automatically saved to the leaderboard
+
+8. **Compete**: Check the leaderboard to see how you rank against other players!
+
+### 🎮 Game Tips
+- Watch asteroid rotation patterns to predict movement
+- Use engine particles to track your ship's momentum
+- Explosions indicate collisions - learn from each crash!
+- Higher scores unlock better leaderboard positions
 
 ## 📡 API Endpoints
 
@@ -208,13 +220,69 @@ The API uses JWT (JSON Web Tokens) for authentication:
 - **Relationships** - Proper foreign keys and navigation properties
 - **Indexes** - Optimized queries for leaderboards
 
-## 🎨 Game Features
+## 🎨 Visual Features
 
-- **Dynamic difficulty** - Speed increases with levels
-- **Particle effects** - Starfield background
-- **High score tracking** - Local and server-side
-- **Responsive design** - Works on different screen sizes
-- **Real-time updates** - Stats refresh after each game
+### Enhanced Spaceship Design
+- **3D Appearance**: Gradient hull with depth and dimension
+- **Glowing Cockpit**: Bright cyan cockpit window with glow effect
+- **Wing Details**: Metallic wings with gradient shading
+- **Engine Effects**: Real-time cyan particle system trailing behind
+
+### Asteroid Graphics
+- **Rotating 3D Asteroids**: Each asteroid slowly rotates for realism
+- **Crater Details**: Random crater patterns on asteroid surfaces
+- **Gradient Shading**: Depth perception with multi-color gradients
+- **Glow Effects**: Subtle orange/red glow around asteroids
+- **Particle Trails**: Small particles trail behind fast-moving asteroids
+
+### Special Effects
+- **Engine Particles**: Cyan particles constantly emit from spaceship engines
+- **Explosion System**: 30-particle explosion on collision with varied colors (red, orange, yellow)
+- **Starfield Background**: 150 twinkling stars with depth parallax
+- **Smooth Animations**: 60 FPS gameplay with particle physics
+
+### UI Enhancements
+- **Pulsing Canvas Border**: Animated border that pulses with the game
+- **Glowing Text**: Score and stats with text-shadow effects
+- **Animated Modals**: Smooth slide-in animations for login/register
+- **Button Ripple Effects**: Interactive button feedback
+
+## 🏗️ Project Structure
+
+```
+spaced-dodger/
+├── SpaceDodgerAPI/              # Backend API
+│   ├── Controllers/             # API Controllers
+│   │   ├── AuthController.cs
+│   │   ├── PlayersController.cs
+│   │   ├── GameScoresController.cs
+│   │   ├── CharactersController.cs
+│   │   └── ItemsController.cs
+│   ├── Models/                  # Data models
+│   │   ├── User.cs
+│   │   ├── PlayerProfile.cs
+│   │   ├── GameScore.cs
+│   │   ├── Character.cs
+│   │   └── Item.cs
+│   ├── Data/                    # Database context
+│   │   └── ApplicationDbContext.cs
+│   ├── DTOs/                    # Data transfer objects
+│   │   └── ApiDTOs.cs
+│   ├── Services/                # Business logic
+│   │   └── TokenService.cs
+│   ├── Migrations/              # EF Core migrations
+│   ├── appsettings.json         # Configuration
+│   └── Program.cs               # Entry point
+├── index.html                   # Game frontend
+├── script.js                    # Game logic & API integration
+├── style.css                    # Styling & animations
+├── start.sh                     # Start script
+├── stop.sh                      # Stop script
+├── README.md                    # This file
+├── QUICKSTART.md                # Quick setup guide
+├── API_EXAMPLES.md              # API usage examples
+└── PROJECT_DOCUMENTATION.md     # Detailed documentation
+```
 
 ## 🔧 Configuration
 
@@ -243,17 +311,98 @@ Use Swagger UI at `http://localhost:5000/swagger` to:
 
 ## 🐛 Troubleshooting
 
+### API Issues
 **API won't start:**
-- Check if port 5000 is available
-- Ensure .NET 8.0 SDK is installed
-
-**Frontend can't connect:**
-- Verify API is running at `http://localhost:5000`
-- Check browser console for CORS errors
-- Ensure correct API_URL in script.js
+- Check if port 5000 is available: `lsof -i :5000`
+- Ensure .NET 8.0 SDK is installed: `dotnet --version`
+- Check for compilation errors: `dotnet build`
 
 **Database errors:**
 - Delete `spacedodger.db` and restart API to recreate
+- Check migrations: `dotnet ef migrations list`
+- Ensure SQLite package is installed
+
+### Frontend Issues
+**Frontend can't connect:**
+- Verify API is running at `http://localhost:5000`
+- Check browser console for CORS errors
+- Ensure correct API_URL in `script.js`
+- Try different browser if CORS issues persist
+
+**Game won't load:**
+- Clear browser cache and reload
+- Check if port 8000 is available: `lsof -i :8000`
+- Ensure Python 3 is installed: `python3 --version`
+
+**Token expired:**
+- Re-login to get a new JWT token
+- Check token expiry in browser DevTools → Application → Local Storage
+
+### Common Solutions
+```bash
+# Kill processes on ports
+kill -9 $(lsof -t -i:5000)
+kill -9 $(lsof -t -i:8000)
+
+# Clean and rebuild API
+cd SpaceDodgerAPI
+dotnet clean
+dotnet build
+
+# Reset database
+rm spacedodger.db
+dotnet run
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. **Fork the Repository**
+   ```bash
+   git fork https://github.com/VipulChaudhari31/dodger-game.git
+   ```
+
+2. **Create a Feature Branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+3. **Commit Your Changes**
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+
+4. **Push to Branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+5. **Open a Pull Request**
+
+### Contribution Guidelines
+- Follow existing code style and conventions
+- Add comments for complex logic
+- Test your changes thoroughly
+- Update documentation if needed
+- Keep commits focused and atomic
+
+### Ideas for Contributions
+- 🎨 New visual effects and animations
+- 🎮 Additional game modes (survival, time attack)
+- 🏆 Achievement system implementation
+- 🌐 Internationalization (i18n) support
+- 📱 Mobile responsive improvements
+- 🧪 Unit and integration tests
+- 📊 Analytics and statistics features
+
+## 📧 Contact
+
+**Developer**: Vipul Chaudhari  
+**GitHub**: [@VipulChaudhari31](https://github.com/VipulChaudhari31)  
+**Repository**: [dodger-game](https://github.com/VipulChaudhari31/dodger-game)
+
+Feel free to open an issue for bugs, questions, or feature requests!
 
 ## 📄 License
 
@@ -270,15 +419,30 @@ This project is for educational purposes.
 ✅ Database relationships and migrations  
 ✅ API documentation with Swagger  
 ✅ Frontend-backend integration  
-✅ Secure password hashing  
+✅ Secure password hashing with BCrypt  
+✅ Canvas-based game development  
+✅ Particle system implementation  
+✅ Real-time leaderboard system  
 
 ## 🚀 Future Enhancements
 
-- Power-ups and special abilities
-- Multiplayer mode
-- Achievement system
-- Profile customization
-- More character types
-- Mobile app version
+- [ ] Power-ups and special abilities
+- [ ] Multiplayer mode with WebSockets
+- [ ] Achievement system with badges
+- [ ] Profile customization (avatars, themes)
+- [ ] More character types and items
+- [ ] Mobile app version (React Native)
+- [ ] Sound effects and background music
+- [ ] Daily challenges and rewards
+- [ ] Social features (friends, challenges)
+- [ ] Advanced analytics dashboard
 
-Enjoy playing Space Dodger! 🚀✨
+---
+
+<div align="center">
+
+### ⭐ Star this repository if you found it helpful!
+
+Made with ❤️ by [Vipul Chaudhari](https://github.com/VipulChaudhari31)
+
+</div>

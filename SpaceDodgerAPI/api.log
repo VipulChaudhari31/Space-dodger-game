@@ -1249,3 +1249,9 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       FROM "Players" AS "p"
       WHERE "p"."UserId" = @__userId_0
       LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__request_Username_0='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."CreatedAt", "u"."Email", "u"."IsActive", "u"."PasswordHash", "u"."Role", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Username" = @__request_Username_0
+      LIMIT 1
