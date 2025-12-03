@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Dodger - Login</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>🚀 Space Dodger Game</h1>
+    
+    <div id="authSection" class="auth-container">
+        <div class="auth-tabs">
+            <button class="tab-btn active" onclick="showLogin()">Login</button>
+            <button class="tab-btn" onclick="showRegister()">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username" required />
+            <input type="password" id="loginPassword" placeholder="Password" required />
+            <button onclick="login()">Login</button>
+            <p id="loginError" class="error-message"></p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" class="auth-form" style="display: none;">
+            <h2>Register</h2>
+            <input type="text" id="registerUsername" placeholder="Username" required />
+            <input type="email" id="registerEmail" placeholder="Email" required />
+            <input type="text" id="registerPlayerName" placeholder="Player Name" required />
+            <input type="password" id="registerPassword" placeholder="Password (min 6 chars)" required />
+            <button onclick="register()">Register</button>
+            <p id="registerError" class="error-message"></p>
+        </div>
+
+        <div class="guest-mode">
+            <p>Or</p>
+            <button onclick="playAsGuest()" class="guest-btn">Play as Guest</button>
+        </div>
+    </div>
+
+    <!-- Game Section (Initially Hidden) -->
+    <div id="gameSection" style="display: none;">
+        <div class="player-info">
+            <p>👤 Player: <span id="playerName">Guest</span></p>
+            <p>🏆 High Score: <span id="playerHighScore">0</span></p>
+            <p>🎮 Games Played: <span id="gamesPlayed">0</span></p>
+            <p>⭐ Rank: <span id="playerRank">Beginner</span></p>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+        <div class="ui">
+            <p>Level: <span id="level">1</span></p>
+            <p>Score: <span id="score">0</span></p>
+            <p>Best: <span id="highScore">0</span></p>
+            <button id="restartBtn">Restart</button>
+            <button id="leaderboardBtn" onclick="showLeaderboard()">Leaderboard</button>
+        </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLeaderboard()">&times;</span>
+            <h2>🏆 Leaderboard</h2>
+            <div class="leaderboard-tabs">
+                <button class="tab-btn active" onclick="showAllTimeLeaderboard()">All-Time Best</button>
+                <button class="tab-btn" onclick="showRecentLeaderboard()">Recent Scores</button>
+            </div>
+            <div id="leaderboardContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
