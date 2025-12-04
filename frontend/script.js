@@ -68,6 +68,12 @@ async function login() {
             localStorage.setItem('authToken', authToken);
             localStorage.setItem('currentUser', JSON.stringify(data));
             
+            // Redirect admin to admin panel
+            if (data.role === 'Admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+            
             await loadPlayerStats();
             showGameSection();
             errorElement.textContent = '';
@@ -114,6 +120,12 @@ async function register() {
             localStorage.setItem('authToken', authToken);
             localStorage.setItem('currentUser', JSON.stringify(data));
             
+            // Redirect admin to admin panel (though admins shouldn't register)
+            if (data.role === 'Admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+            
             await loadPlayerStats();
             showGameSection();
             errorElement.textContent = '';
@@ -159,6 +171,17 @@ function showGameSection() {
     
     if (currentUser) {
         document.getElementById('playerName').textContent = currentUser.playerName || 'Guest';
+        
+        // Show admin button if user is admin
+        if (currentUser.role === 'Admin') {
+            const playerInfo = document.querySelector('.player-info');
+            const adminBtn = document.createElement('button');
+            adminBtn.textContent = '⚙️ Admin Panel';
+            adminBtn.className = 'admin-panel-btn';
+            adminBtn.onclick = () => window.location.href = 'admin.html';
+            adminBtn.style.cssText = 'background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%); border-color: #ba68c8;';
+            playerInfo.appendChild(adminBtn);
+        }
     }
     
     startGame();
@@ -740,9 +763,14 @@ function displayLeaderboard(data, container, showDate = false) {
 
 // Check if user is already logged in
 if (authToken && currentUser) {
-    loadPlayerStats().then(() => {
-        showGameSection();
-    });
+    // Redirect admin to admin panel
+    if (currentUser.role === 'Admin') {
+        window.location.href = 'admin.html';
+    } else {
+        loadPlayerStats().then(() => {
+            showGameSection();
+        });
+    }
 }
 
 // Close modal when clicking outside

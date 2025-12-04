@@ -99,6 +99,26 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
     context.Database.EnsureCreated();
+    
+    // Create default admin user if it doesn't exist
+    if (!context.Users.Any(u => u.Username == "admin"))
+    {
+        var adminUser = new SpaceDodgerAPI.Models.User
+        {
+            Username = "admin",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
+            Email = "admin@spacedodger.com",
+            Role = "Admin",
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true
+        };
+        context.Users.Add(adminUser);
+        context.SaveChanges();
+        
+        Console.WriteLine("✓ Admin user created successfully");
+        Console.WriteLine("  Username: admin");
+        Console.WriteLine("  Password: admin123");
+    }
 }
 
 // Configure the HTTP request pipeline.

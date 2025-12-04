@@ -75,26 +75,12 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Color).HasMaxLength(20);
         });
 
-        // Seed initial data
+        // Seed initial data (Characters and Items only - Admin user is created in Program.cs)
         SeedData(modelBuilder);
     }
 
     private void SeedData(ModelBuilder modelBuilder)
     {
-        // Seed default admin user (password: admin123)
-        modelBuilder.Entity<User>().HasData(
-            new User
-            {
-                Id = 1,
-                Username = "admin",
-                PasswordHash = "$2a$11$8EqN5Hn7F7x4N5jZ5xQZLO7YQZqX9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z.", // This should be properly hashed
-                Email = "admin@spacedodger.com",
-                Role = "Admin",
-                CreatedAt = DateTime.UtcNow,
-                IsActive = true
-            }
-        );
-
         // Seed Characters
         modelBuilder.Entity<Character>().HasData(
             new Character { Id = 1, Name = "Basic Ship", Type = "Ship", Description = "Standard space fighter", Speed = 4, Size = 20, Color = "#00e676", IsUnlocked = true, UnlockScore = 0 },

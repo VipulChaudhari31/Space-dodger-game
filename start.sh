@@ -48,9 +48,11 @@ if lsof -Pi :8000 -sTCP:LISTEN -t >/dev/null ; then
     echo -e "${YELLOW}Web server already running on port 8000${NC}"
 else
     echo "Starting web server on port 8000..."
+    cd frontend
     python3 -m http.server 8000 > /dev/null 2>&1 &
     WEB_PID=$!
     echo "Web server PID: $WEB_PID"
+    cd ..
     sleep 2
     echo -e "${GREEN}✓ Web server started successfully${NC}"
 fi

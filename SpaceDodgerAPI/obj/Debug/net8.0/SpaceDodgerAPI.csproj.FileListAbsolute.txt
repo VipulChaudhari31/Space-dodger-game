@@ -135,3 +135,4 @@
 /home/vipul/projects/spaced-dodger/SpaceDodgerAPI/obj/Debug/net8.0/SpaceDodgerAPI.pdb
 /home/vipul/projects/spaced-dodger/SpaceDodgerAPI/obj/Debug/net8.0/SpaceDodgerAPI.genruntimeconfig.cache
 /home/vipul/projects/spaced-dodger/SpaceDodgerAPI/obj/Debug/net8.0/ref/SpaceDodgerAPI.dll
+/home/vipul/projects/spaced-dodger/SpaceDodgerAPI/obj/Debug/net8.0/SpaceDodgerAPI.sourcelink.json

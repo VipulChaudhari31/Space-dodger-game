@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpaceDodgerAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e63b3d97f9f2e8c831cc53aef55ba2de1245634f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpaceDodgerAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpaceDodgerAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
