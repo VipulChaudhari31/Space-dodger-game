@@ -703,7 +703,7 @@ location.reload();
 ### Common Solutions
 ```bash
 # Kill all processes
-cd /home/vipul/projects/spaced-dodger
+cd spaced-dodger
 ./stop.sh
 
 # Clean and rebuild API
